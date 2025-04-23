@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유럽 여행 사진첩</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f8ff;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .image-container {
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .image-display {
+            max-width: 100%;
+            max-height: 70vh;
+            display: block;
+            margin: 0 auto;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .counter {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #34495e;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            .image-display {
+                max-height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>유럽 여행 사진첩</h1>
+        <div class="image-container">
+            <img id="currentImage" class="image-display" src="" alt="Travel photo">
+        </div>
+        <div class="counter">
+            이미지 <span id="currentIndex">1</span> / <span id="totalImages">20</span>
+        </div>
+        <div class="controls">
+            <button id="prevBtn" onclick="prevImage()">이전</button>
+            <button id="nextBtn" onclick="nextImage()">다음</button>
+        </div>
+    </div>
+
+    <script>
+        // 실제 이미지 파일 경로 배열
+        const images = [
+            "images/europe_trip_1.jpg", 
+            "images/europe_trip_2.jpg", 
+            "images/europe_trip_3.jpg",
+            "images/europe_trip_4.jpg",
+            "images/europe_trip_5.jpg",
+            "images/europe_trip_6.jpg",
+            "images/europe_trip_7.jpg",
+            "images/europe_trip_8.jpg",
+            "images/europe_trip_9.jpg",
+            "images/europe_trip_10.jpg",
+            "images/europe_trip_11.jpg",
+            "images/europe_trip_12.jpg",
+            "images/europe_trip_13.jpg",
+            "images/europe_trip_14.jpg",
+            "images/europe_trip_15.jpg",
+            "images/europe_trip_16.jpg",
+            "images/europe_trip_17.jpg",
+            "images/europe_trip_18.jpg",
+            "images/europe_trip_19.jpg",
+            "images/europe_trip_20.jpg",
+            "images/europe_trip_21.jpg",
+            "images/europe_trip_22.jpg",
+            "images/europe_trip_23.jpg",
+            "images/europe_trip_24.jpg",
+            "images/europe_trip_25.jpg",
+            "images/europe_trip_26.jpg",
+            "images/europe_trip_27.jpg",
+            "images/europe_trip_28.jpg",
+            "images/europe_trip_29.jpg",
+            "images/europe_trip_30.jpg",
+            "images/europe_trip_31.jpg",
+            "images/europe_trip_32.jpg",
+            "images/europe_trip_33.jpg",
+            "images/europe_trip_34.jpg",
+            "images/europe_trip_35.jpg",
+            "images/europe_trip_36.jpg",
+            "images/europe_trip_37.jpg",
+            "images/europe_trip_38.jpg",
+            "images/europe_trip_39.jpg",
+            "images/europe_trip_40.jpg",
+            "images/europe_trip_41.jpg",
+            "images/europe_trip_42.jpg",
+            "images/europe_trip_43.jpg",
+            "images/europe_trip_44.jpg",
+            "images/europe_trip_45.jpg",
+            "images/europe_trip_46.jpg",
+            "images/europe_trip_47.jpg",
+            "images/europe_trip_48.jpg",
+            "images/europe_trip_49.jpg",
+            "images/europe_trip_50.jpg",
+            "images/europe_trip_51.jpg",
+            "images/europe_trip_52.jpg",
+            "images/europe_trip_53.jpg",
+            "images/europe_trip_54.jpg"
+        ];
+        
+        let currentImageIndex = 0;
+        const totalImages = images.length;
+        
+        // 전체 이미지 수 표시 업데이트
+        document.getElementById('totalImages').textContent = totalImages;
+        
+        // 표시된 이미지를 업데이트하는 함수
+        function updateImage() {
+            // 실제 이미지 경로를 src에 설정
+            document.getElementById('currentImage').src = images[currentImageIndex];
+            document.getElementById('currentImage').alt = "유럽 여행 사진 " + (currentImageIndex + 1);
+            document.getElementById('currentIndex').textContent = currentImageIndex + 1;
+            
+            // 버튼 상태 업데이트
+            document.getElementById('prevBtn').disabled = (currentImageIndex === 0);
+            document.getElementById('nextBtn').disabled = (currentImageIndex === totalImages - 1);
+        }
+        
+        // Function to go to the previous image
+        function prevImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                updateImage();
+            }
+        }
+        
+        // Function to go to the next image
+        function nextImage() {
+            if (currentImageIndex < totalImages - 1) {
+                currentImageIndex++;
+                updateImage();
+            }
+        }
+        
+        // Initialize with the first image
+        updateImage();
+        
+        // Optional: Add keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                prevImage();
+            } else if (event.key === 'ArrowRight') {
+                nextImage();
+            }
+        });
+    </script>
+</body>
+</html>
